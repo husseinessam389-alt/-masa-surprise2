@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قضية ماسه الغامضة 🕵️‍♀️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+:root {
+  --bg: #09090e;
+  --card: #15151f;
+  --gold: #e6c36a;
+  --purple: #9c75ff;
+  --white: #f5f3fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, #28203c 0%, #09090e 55%);
+  color: var(--white);
+  font-family: 'Cairo', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.card {
+  background: rgba(21, 21, 31, 0.96);
+  border: 1px solid #373044;
+  border-radius: 24px;
+  padding: 28px 22px;
+  box-shadow: 0 0 45px #0008;
+  text-align: center;
+  animation: appear .5s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.badge {
+  display: inline-block;
+  color: #ff7777;
+  border: 1px solid #ff7777;
+  padding: 5px 15px;
+  border-radius: 8px;
+  font-size: 13px;
+  transform: rotate(-3deg);
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: var(--gold);
+  font-size: 28px;
+  margin: 8px 0;
+}
+
+h2 {
+  font-size: 21px;
+  color: var(--purple);
+}
+
+p {
+  line-height: 2;
+  color: #d5d1df;
+  font-size: 16px;
+}
+
+.emoji {
+  font-size: 65px;
+  margin: 10px 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 13px;
+  padding: 13px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.main-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #e6c36a, #b99543);
+  color: #17120a;
+  margin-top: 18px;
+}
+
+.option {
+  display: block;
+  width: 100%;
+  background: #242333;
+  border: 1px solid #444057;
+  color: white;
+  margin: 10px 0;
+}
+
+.option:hover {
+  background: #39304e;
+  border-color: var(--purple);
+}
+
+.progress {
+  height: 6px;
+  background: #33303d;
+  border-radius: 20px;
+  margin: 15px 0 25px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--purple);
+  width: 0%;
+  transition: .4s;
+}
+
+.hidden {
+  display: none;
+}
+
+.stamp {
+  color: #ff7777;
+  border: 3px solid #ff7777;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 22px;
+  font-weight: 900;
+  transform: rotate(-8deg);
+  margin: 20px 0;
+}
+
+.heart {
+  color: #ff6b91;
+  font-size: 35px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.2); }
+}
+
+.small {
+  font-size: 12px;
+  color: #888394;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- البداية -->
+  <section class="card" id="start">
+
+    <div class="badge">ملف سري للغاية</div>
+
+    <div class="emoji">🕵️‍♀️</div>
+
+    <h1>قضية ماسه الغامضة</h1>
+
+    <p>
+      إلى السيدة ماسه...
+      <br>
+      تم فتح تحقيق عاجل في قضية غريبة،
+      والمتهمة الرئيسية هي حضرتك!
+    </p>
+
+    <p>
+      عندنا أدلة خطيرة جدًا...
+      ومش هنقدر نقفل القضية غير لما نسمع أقوالك 😂
+    </p>
+
+    <button class="main-btn" onclick="startCase()">
+      ابدأ التحقيق 🔍
+    </button>
+
+    <p class="small">
+      تنبيه: قد تحتوي القضية على جرعة زائدة من الضحك.
+    </p>
+
+  </section>
+
+  <!-- التحقيق -->
+  <section class="card hidden" id="investigation">
+
+    <div class="badge">جاري التحقيق</div>
+
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <h2 id="questionTitle"></h2>
+
+    <div class="emoji" id="questionEmoji"></div>
+
+    <p id="questionText"></p>
+
+    <div id="options"></div>
+
+    <p class="small" id="questionNumber"></p>
+
+  </section>
+
+  <!-- النتيجة -->
+  <section class="card hidden" id="result">
+
+    <div class="badge">انتهى التحقيق</div>
+
+    <div class="emoji">⚖️</div>
+
+    <h1>الحكم النهائي</h1>
+
+    <div class="stamp">مذنبة 😂</div>
+
+    <p>
+      بعد مراجعة جميع الأدلة،
+      قررت المحكمة إدانة المتهمة ماسه
+      بالتهم التالية:
+    </p>
+
+    <p>
+      📚 حب الروايات بصورة مشبوهة.
+      <br>
+      🖤 الانتماء لعالم اللون الأسود.
+      <br>
+      🌟 امتلاك شخصية مميزة يصعب تفسيرها.
+      <br>
+      😂 التسبب في ابتسامة شخص قرر يعمل لها مفاجأة.
+    </p>
+
+    <h2>العقوبة:</h2>
+
+    <p>
+      الحكم عليها إنها تفضل الشخص المميز
+      اللي هي عليه، وممنوع عليها تمامًا
+      إنها تنسى إنها تستحق الفرح.
+    </p>
+
+    <button class="main-btn" onclick="showLetter()">
+      استني... فيه حاجة أخيرة ❤️
+    </button>
+
+  </section>
+
+  <!-- الرسالة -->
+  <section class="card hidden" id="letter">
+
+    <div class="badge">رسالة خاصة للمتهمة</div>
+
+    <div class="emoji">💌</div>
+
+    <h1>يا ماسه...</h1>
+
+    <p>
+      بعيدًا عن التحقيقات والأدلة،
+      أنا حبيت أعملك الحاجة دي
+      عشان أشوف ضحكتك.
+    </p>
+
+    <p>
+      يمكن المفاجأة بسيطة،
+      ويمكن الكلام مش هيقدر يوصف كل حاجة،
+      بس حبيت أفكرك إنك شخص مميز،
+      وإن وجودك بيضيف للحكايات
+      تفاصيل جميلة.
+    </p>
+
+    <p>
+      أتمنى تفضلي دايمًا بتضحكي،
+      وتحققي كل اللي بتحلمي بيه،
+      وتلاقي في أيامك حاجات كتير
+      تستاهل الفرحة.
+    </p>
+
+    <div class="heart">♥</div>
+
+    <h2>من شخص قرر يعملك قضية...</h2>
+
+    <p>
+      بس الحقيقة إنه كان عايز
+      يشوفك مبسوطة 😂❤️
+    </p>
+
+    <button class="main-btn" onclick="restart()">
+      إعادة فتح القضية 🔍
+    </button>
+
+    <p class="small">
+      انتهى الملف السري.
+    </p>
+
+  </section>
+
+</div>
+
+<script>
+
+const questions = [
+
+  {
+    title: "الدليل الأول",
+    emoji: "📚",
+    text: "تم ضبط المتهمة وهي تقرأ رواية... ما التفسير المنطقي؟",
+    options: [
+      "بتقرأ فصل واحد بس 😂",
+      "دخلت عالم الرواية ومش عايزة ترجع",
+      "المحقق نفسه محتاج يقرأ الرواية"
+    ],
+    replies: [
+      "فصل واحد؟ دي أول كذبة في القضية!",
+      "واضح إننا قدام محترفة روايات 😂",
+      "المحقق أعلن استسلامه!"
+    ]
+  },
+
+  {
+    title: "الدليل الثاني",
+    emoji: "🖤",
+    text: "المتهمة بتحب اللون الأسود... هل ده دليل على وجود سر غامض؟",
+    options: [
+      "أكيد بتخطط لحاجة",
+      "لا، ذوقها جميل بس",
+      "المحقق غير مقتنع بأي لون تاني 😂"
+    ],
+    replies: [
+      "تم تسجيل الشكوك!",
+      "اعتراض مقبول من هيئة الدفاع.",
+      "المحقق محتاج يغيّر هدومه."
+    ]
+  },
+
+  {
+    title: "الدليل الثالث",
+    emoji: "🎬",
+    text: "تم العثور على المتهمة وهي بتتفرج على أنمي... ما رد فعلها؟",
+    options: [
+      "مشهد واحد كمان وخلاص",
+      "بتعيش مع الشخصيات",
+      "المحقق عايز يعرف اسم الأنمي"
+    ],
+    replies: [
+      "الجملة الشهيرة قبل 3 ساعات من المشاهدة 😂",
+      "تم إثبات التهمة!",
+      "القضية تحولت لنقاش أنمي."
+    ]
+  },
+
+  {
+    title: "الدليل الأخير",
+    emoji: "❤️",
+    text: "لو حد عملك مفاجأة مخصوص عشان يفرحك... هتعملي إيه؟",
+    options: [
+      "هضحك وأفرح",
+      "هتأثر ومش هعرف أقول حاجة",
+      "هسأله: إنت بتعمل إيه يا مجنون؟ 😂"
+    ],
+    replies: [
+      "وده كان الهدف من القضية أصلًا ❤️",
+      "المحقق تأثر هو كمان.",
+      "تم تسجيل رد فعل المتهمة بنجاح 😂"
+    ]
+  }
+
+];
+
+let current = 0;
+
+function hideAll() {
+  document.querySelectorAll(".card").forEach(card => {
+    card.classList.add("hidden");
+  });
+}
+
+function startCase() {
+  hideAll();
+  document.getElementById("investigation")
+    .classList.remove("hidden");
+
+  current = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+
+  const q = questions[current];
+
+  document.getElementById("questionTitle").textContent = q.title;
+  document.getElementById("questionEmoji").textContent = q.emoji;
+  document.getElementById("questionText").textContent = q.text;
+
+  document.getElementById("questionNumber").textContent =
+    `السؤال ${current + 1} من ${questions.length}`;
+
+  document.getElementById("progressBar").style.width =
+    `${((current + 1) / questions.length) * 100}%`;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+
+  q.options.forEach((option, index) => {
+
+    const button = document.createElement("button");
+
+    button.className = "option";
+    button.textContent = option;
+
+    button.onclick = () => chooseAnswer(index);
+
+    optionsDiv.appendChild(button);
+
+  });
+
+}
+
+function chooseAnswer(index) {
+
+  const q = questions[current];
+
+  document.getElementById("questionTitle").textContent =
+    "رد المحقق 😂";
+
+  document.getElementById("questionEmoji").textContent = "👨‍⚖️";
+
+  document.getElementById("questionText").textContent =
+    q.replies[index];
+
+  document.getElementById("options").innerHTML = "";
+
+  const button = document.createElement("button");
+
+  button.className = "main-btn";
+
+  button.textContent =
+    current === questions.length - 1
+    ? "إصدار الحكم النهائي ⚖️"
+    : "عرض الدليل التالي 🔍";
+
+  button.onclick = () => {
+
+    current++;
+
+    if (current < questions.length) {
+      showQuestion();
+    } else {
+      hideAll();
+
+      document.getElementById("result")
+        .classList.remove("hidden");
+    }
+
+  };
+
+  document.getElementById("options").appendChild(button);
+
+}
+
+function showLetter() {
+
+  hideAll();
+
+  document.getElementById("letter")
+    .classList.remove("hidden");
+
+}
+
+function restart() {
+
+  hideAll();
+
+  document.getElementById("start")
+    .classList.remove("hidden");
+
+}
+
+</script>
+
+</body>
+</html>
